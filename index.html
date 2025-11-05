@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Kind of Cookie Are You? 🍪</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Part 1: Quiz -->
+        <div id="quiz-section" class="section active">
+            <div class="header">
+                <h1>🍪 What Kind of Cookie Are You?</h1>
+                <p class="subtitle">Take this fun quiz to discover your cookie personality!</p>
+            </div>
+
+            <div class="quiz-container">
+                <div class="question active" data-question="0">
+                    <h2>What's your favorite cookie flavor?</h2>
+                    <div class="options">
+                        <button class="option" data-value="chocolate">🍫 Chocolate chip</button>
+                        <button class="option" data-value="strawberry">🍓 Strawberry shortbread</button>
+                        <button class="option" data-value="butter">🍪 Classic butter</button>
+                        <button class="option" data-value="peanut">🌰 Peanut crunch</button>
+                    </div>
+                </div>
+
+                <div class="question" data-question="1">
+                    <h2>When do you usually eat cookies?</h2>
+                    <div class="options">
+                        <button class="option" data-value="morning">Morning snack</button>
+                        <button class="option" data-value="after-school">After school</button>
+                        <button class="option" data-value="late-night">Late-night treat</button>
+                        <button class="option" data-value="stressed">Whenever I'm stressed! 😋</button>
+                    </div>
+                </div>
+
+                <div class="question" data-question="2">
+                    <h2>Who do you share your cookies with?</h2>
+                    <div class="options">
+                        <button class="option" data-value="friends">Friends</button>
+                        <button class="option" data-value="family">Family</button>
+                        <button class="option" data-value="pets">Pets</button>
+                        <button class="option" data-value="self">I keep them all for myself 😋</button>
+                    </div>
+                </div>
+
+                <div class="question" data-question="3">
+                    <h2>What's your favorite holiday activity?</h2>
+                    <div class="options">
+                        <button class="option" data-value="tree">Decorating the tree 🎄</button>
+                        <button class="option" data-value="movies">Watching movies 🎥</button>
+                        <button class="option" data-value="shopping">Shopping for gifts 🎁</button>
+                        <button class="option" data-value="social">Posting on social media 📱</button>
+                    </div>
+                </div>
+
+                <div class="question" data-question="4">
+                    <h2>Where do you usually get your cookies?</h2>
+                    <div class="options">
+                        <button class="option" data-value="bakery">Local bakery</button>
+                        <button class="option" data-value="online">Online shop</button>
+                        <button class="option" data-value="supermarket">Supermarket</button>
+                        <button class="option" data-value="bake">I bake them myself!</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="quiz-progress"></div>
+            </div>
+        </div>
+
+        <!-- Part 2: Personality Result -->
+        <div id="result-section" class="section">
+            <div class="result-container">
+                <div class="celebration">🎉</div>
+                <h1 id="result-title">You are a Cinnamon Dream Cookie!</h1>
+                <p id="result-description" class="result-text">
+                    Sweet, kind-hearted, and always ready to share your last bite!<br>
+                    You love cozy nights, warm lights, and baking with friends.
+                </p>
+                <button id="reveal-btn" class="reveal-button">See More Details</button>
+            </div>
+        </div>
+
+        <!-- Part 3: The Reveal -->
+        <div id="reveal-section" class="section">
+            <div class="reveal-container">
+                <div class="cookiebot">
+                    <div class="bot-icon">🤖</div>
+                    <h2>CookieBot's Analysis</h2>
+                </div>
+                
+                <div class="reveal-message">
+                    <p class="bot-text">
+                        "Thanks for the info, Junior Baker! I've learned so much about you already!"
+                    </p>
+                    <p class="bot-text">
+                        Let's see what I've figured out from your answers:
+                    </p>
+                </div>
+
+                <div class="insights" id="insights-list">
+                    <!-- Insights will be dynamically added here -->
+                </div>
+
+                <div class="data-progress">
+                    <p class="progress-label">🍪 Data Collected:</p>
+                    <div class="progress-bar-large">
+                        <div class="progress-fill-large" id="data-progress-bar"></div>
+                    </div>
+                    <span class="progress-percentage" id="progress-percentage">90%</span>
+                </div>
+
+                <button id="restart-btn" class="restart-button">Take Quiz Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
