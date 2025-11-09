@@ -3,36 +3,36 @@ let currentQuestion = 0;
 let answers = {};
 let userName = '';
 let userAge = '';
-const totalQuestions = 5;
+const totalQuestions = 4;
 
-// Personality results
+// Cookie personality results - mapped by cookie flavor
 const personalityResults = {
     chocolate: {
         name: "Choco Hero Cookie",
-        description: "Bold and adventurous! You're not afraid to take risks and always go for the extra chocolate chips. Life is too short for plain cookies!"
+        description: "Bold, adventurous, and privacy-conscious!"
     },
     strawberry: {
         name: "Frosted Thinker Cookie",
-        description: "Thoughtful and sophisticated, you appreciate the finer things in life. You're elegant, refined, and always have the perfect cookie for every occasion."
+        description: "Thoughtful, sophisticated, and privacy-aware!"
     },
     butter: {
         name: "Classic Butter Cookie",
-        description: "Timeless and reliable, you're the friend everyone can count on. Simple pleasures bring you the most joy, and you value tradition."
+        description: "Timeless, reliable, and privacy-respecting!"
     },
     peanut: {
         name: "Peanut Power Cookie",
-        description: "Energetic and full of surprises! You're the life of the party and always bring excitement wherever you go. Crunchy and unforgettable!"
+        description: "Energetic, surprising, and privacy-protected!"
     },
     default: {
         name: "Cinnamon Dream Cookie",
-        description: "Sweet, kind-hearted, and always ready to share your last bite! You love cozy nights, warm lights, and baking with friends."
+        description: "Warm, kind, and privacy-smart!"
     }
 };
 
 // Function to determine personality based on answers
 function determinePersonality() {
-    // Question 2 (index 2) is the cookie flavor question (after name=0, age=1)
-    const cookieFlavor = answers[2];
+    // Question 0 is the cookie flavor question in quiz2
+    const cookieFlavor = answers[0];
     
     // Primary determination based on cookie flavor
     if (cookieFlavor && personalityResults[cookieFlavor]) {
@@ -43,58 +43,6 @@ function determinePersonality() {
     return personalityResults.default;
 }
 
-// Data insights mapping
-const insightsMap = {
-    chocolate: {
-        answer: "You love chocolate",
-        insight: "→ probably an impulsive shopper 🍫"
-    },
-    strawberry: {
-        answer: "You prefer fruity flavors",
-        insight: "→ You're likely open to trying new things 🌈"
-    },
-    butter: {
-        answer: "You prefer classic flavors",
-        insight: "→ You value tradition and might be more cautious 🛒"
-    },
-    peanut: {
-        answer: "You like crunchy textures",
-        insight: "→ You prefer products with substance 📝"
-    },
-    "after-school": {
-        answer: "You eat cookies after school",
-        insight: "→ you're likely a student 🏫"
-    },
-    "late-night": {
-        answer: "You eat cookies late at night",
-        insight: "→ You're probably a night owl 🌙"
-    },
-    morning: {
-        answer: "You eat cookies in the morning",
-        insight: "→ You might be an early riser ☀️"
-    },
-    stressed: {
-        answer: "You eat cookies when stressed",
-        insight: "→ You're likely to make emotional purchases 💳"
-    },
-    online: {
-        answer: "You buy cookies online",
-        insight: "→ now I know your shopping habits 💻"
-    },
-    bakery: {
-        answer: "You shop at local bakeries",
-        insight: "→ I can infer your location preferences 🗺️"
-    },
-    supermarket: {
-        answer: "You shop at supermarkets",
-        insight: "→ I know your shopping patterns 🛒"
-    },
-    bake: {
-        answer: "You bake cookies yourself",
-        insight: "→ You're creative and I can track your interests 👩‍🍳"
-    }
-};
-
 // Initialize quiz
 document.addEventListener('DOMContentLoaded', function() {
     setupQuiz();
@@ -102,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Setup name input
     const nameInput = document.getElementById('name-input');
     const nameSubmit = document.getElementById('name-submit');
+    const nameSkip = document.getElementById('name-skip');
     
     nameInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
@@ -110,10 +59,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     nameSubmit.addEventListener('click', handleNameSubmit);
+    nameSkip.addEventListener('click', handleNameSkip);
     
     // Setup age input
     const ageInput = document.getElementById('age-input');
     const ageSubmit = document.getElementById('age-submit');
+    const ageSkip = document.getElementById('age-skip');
     
     ageInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
@@ -122,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     ageSubmit.addEventListener('click', handleAgeSubmit);
+    ageSkip.addEventListener('click', handleAgeSkip);
 });
 
 function setupQuiz() {
@@ -134,6 +86,35 @@ function setupQuiz() {
     document.getElementById('quiz-progress').style.width = '0%';
 }
 
+function handleAnswer(event) {
+    const questionIndex = currentQuestion;
+    const questionElement = event.target.closest('.question');
+    const value = event.target.getAttribute('data-value');
+    
+    // Store answer
+    answers[questionIndex] = value;
+    
+    // Move to next question
+    currentQuestion++;
+    
+    if (currentQuestion < totalQuestions) {
+        // Hide current question
+        questionElement.classList.remove('active');
+        
+        // Show next question
+        setTimeout(() => {
+            const nextQuestion = document.querySelector(`[data-question="${currentQuestion}"]`);
+            nextQuestion.classList.add('active');
+            updateProgress();
+        }, 300);
+    } else {
+        // Quiz complete
+        setTimeout(() => {
+            showResult();
+        }, 300);
+    }
+}
+
 function handleNameSubmit() {
     const nameInput = document.getElementById('name-input');
     const name = nameInput.value.trim();
@@ -144,11 +125,11 @@ function handleNameSubmit() {
     }
     
     userName = name;
-    answers[0] = name;
+    answers[2] = name;
     
-    // Show CookieBot response
+    // Show CookieBot response with privacy message
     const responseDiv = document.getElementById('name-response');
-    responseDiv.innerHTML = '<span class="bot-icon-small">🤖</span>"Nice to meet you, ' + name + '! I\'ll remember that!"';
+    responseDiv.innerHTML = '<span class="bot-icon-small">🤖</span>"Got it — your name is encrypted 🔐 and stored only on your device. I can\'t see it!"';
     setTimeout(() => {
         responseDiv.classList.add('show');
     }, 100);
@@ -156,7 +137,14 @@ function handleNameSubmit() {
     // Move to next question after showing response
     setTimeout(() => {
         moveToNextQuestion();
-    }, 2000);
+    }, 2500);
+}
+
+function handleNameSkip() {
+    answers[2] = null;
+    
+    // Move to next question immediately
+    moveToNextQuestion();
 }
 
 function handleAgeSubmit() {
@@ -169,11 +157,11 @@ function handleAgeSubmit() {
     }
     
     userAge = age;
-    answers[1] = age;
+    answers[3] = age;
     
-    // Show CookieBot response
+    // Show CookieBot response with privacy message
     const responseDiv = document.getElementById('age-response');
-    responseDiv.innerHTML = '<span class="bot-icon-small">🤖</span>"Perfect, age ' + age + ' — that tells me a lot about your cookie personality!"';
+    responseDiv.innerHTML = '<span class="bot-icon-small">🤖</span>"Don\'t worry — your age is stored locally and stays hidden, even from me."';
     setTimeout(() => {
         responseDiv.classList.add('show');
     }, 100);
@@ -181,7 +169,16 @@ function handleAgeSubmit() {
     // Move to next question after showing response
     setTimeout(() => {
         moveToNextQuestion();
-    }, 2000);
+    }, 2500);
+}
+
+function handleAgeSkip() {
+    answers[3] = null;
+    
+    // Quiz complete
+    setTimeout(() => {
+        showResult();
+    }, 300);
 }
 
 function moveToNextQuestion() {
@@ -204,35 +201,6 @@ function moveToNextQuestion() {
     }
 }
 
-function handleAnswer(event) {
-    const questionIndex = currentQuestion;
-    const questionElement = event.target.closest('.question');
-    const value = event.target.getAttribute('data-value');
-    
-    // Store answer (offset by 2 because questions 0 and 1 are name/age)
-    answers[questionIndex] = value;
-    
-    // Move to next question
-    currentQuestion++;
-    
-    if (currentQuestion < totalQuestions) {
-        // Hide current question
-        questionElement.classList.remove('active');
-        
-        // Show next question
-        setTimeout(() => {
-            const nextQuestion = document.querySelector(`[data-question="${currentQuestion}"]`);
-            nextQuestion.classList.add('active');
-            updateProgress();
-        }, 300);
-    } else {
-        // Quiz complete
-        setTimeout(() => {
-            showReveal();
-        }, 300);
-    }
-}
-
 function updateProgress() {
     const progress = (currentQuestion / totalQuestions) * 100;
     document.getElementById('quiz-progress').style.width = progress + '%';
@@ -251,91 +219,56 @@ function resetResponses() {
     }
 }
 
-function showReveal() {
+function showResult() {
     // Hide quiz section
     document.getElementById('quiz-section').classList.remove('active');
     
-    // Show reveal section
-    document.getElementById('reveal-section').classList.add('active');
+    // Show result section
+    document.getElementById('result-section').classList.add('active');
     
-    // Generate insights based on answers
-    generateInsights();
+    // Determine personality based on actual answers
+    const result = determinePersonality();
+    document.getElementById('result-title').textContent = `You are a ${result.name}!`;
+    document.querySelector('.result-description').textContent = result.description;
+    
+    // Animate privacy features
+    setTimeout(() => {
+        animatePrivacyFeatures();
+    }, 500);
     
     // Animate progress bar
     setTimeout(() => {
         animateProgressBar();
-    }, 500);
+    }, 1000);
     
     // Setup restart button
     document.getElementById('restart-btn').addEventListener('click', restartQuiz);
 }
 
-function generateInsights() {
-    const insightsList = document.getElementById('insights-list');
-    insightsList.innerHTML = '';
-    
-    const shownInsights = new Set();
-    const insights = [];
-    
-    // Add age insight
-    if (userAge) {
-        insights.push({
-            answer: `You're ${userAge}`,
-            insight: "→ a perfect age for late-night snacking 🍪"
-        });
-    }
-    
-    // Generate insights from answers (skip name and age which are indices 0 and 1)
-    Object.entries(answers).forEach(([index, answer]) => {
-        const idx = parseInt(index);
-        if (idx >= 2 && insightsMap[answer] && !shownInsights.has(answer)) {
-            insights.push({
-                answer: insightsMap[answer].answer,
-                insight: insightsMap[answer].insight
-            });
-            shownInsights.add(answer);
-        }
-    });
-    
-    // Create insight items
-    insights.forEach((insight) => {
-        const insightItem = document.createElement('div');
-        insightItem.className = 'insight-item';
-        insightItem.innerHTML = `
-            <p><strong>${insight.answer}</strong> ${insight.insight}</p>
-        `;
-        insightsList.appendChild(insightItem);
-    });
-    
-    // Animate insights appearing
-    const insightItems = insightsList.querySelectorAll('.insight-item');
-    insightItems.forEach((item, index) => {
+function animatePrivacyFeatures() {
+    const privacyItems = document.querySelectorAll('.privacy-item');
+    privacyItems.forEach((item, index) => {
         setTimeout(() => {
             item.classList.add('show');
         }, index * 300);
     });
-    
-    // Update reveal greeting with name
-    if (userName) {
-        document.getElementById('reveal-name').textContent = userName;
-    }
 }
 
 function animateProgressBar() {
     const progressBar = document.getElementById('data-progress-bar');
     const progressPercentage = document.getElementById('progress-percentage');
     let progress = 0;
-    const targetProgress = 95;
+    const targetProgress = 10;
     
     const interval = setInterval(() => {
-        progress += 2;
+        progress += 0.5;
         if (progress >= targetProgress) {
             progress = targetProgress;
             clearInterval(interval);
         }
         progressBar.style.width = progress + '%';
-        progressPercentage.textContent = progress + '%';
-    }, 30);
+        progressPercentage.textContent = Math.round(progress) + '%';
+    }, 50);
 }
 
 function restartQuiz() {
@@ -360,6 +293,11 @@ function restartQuiz() {
         }
     });
     
+    // Reset privacy items
+    document.querySelectorAll('.privacy-item').forEach(item => {
+        item.classList.remove('show');
+    });
+    
     // Reset progress
     document.getElementById('quiz-progress').style.width = '0%';
     document.getElementById('data-progress-bar').style.width = '0%';
@@ -376,5 +314,4 @@ function restartQuiz() {
     // Re-setup quiz
     setupQuiz();
 }
-
 

@@ -16,8 +16,26 @@
             </div>
 
             <div class="quiz-container">
-                <div class="question active" data-question="0">
-                    <h2>What's your favorite cookie flavor?</h2>
+                <div class="question active" data-question="0" data-type="text">
+                    <h2>Question 1: What's your name?</h2>
+                    <div class="input-container">
+                        <input type="text" id="name-input" class="text-input" placeholder="✏️ Type your name here" autocomplete="off">
+                        <button class="submit-btn" id="name-submit">Next</button>
+                    </div>
+                    <div class="cookiebot-response" id="name-response"></div>
+                </div>
+
+                <div class="question" data-question="1" data-type="number">
+                    <h2>Question 2: How old are you?</h2>
+                    <div class="input-container">
+                        <input type="number" id="age-input" class="number-input" placeholder="🔢 Enter your age" min="1" max="120" autocomplete="off">
+                        <button class="submit-btn" id="age-submit">Next</button>
+                    </div>
+                    <div class="cookiebot-response" id="age-response"></div>
+                </div>
+
+                <div class="question" data-question="2" data-type="choice">
+                    <h2>Question 3: What's your favorite cookie flavor?</h2>
                     <div class="options">
                         <button class="option" data-value="chocolate">🍫 Chocolate chip</button>
                         <button class="option" data-value="strawberry">🍓 Strawberry shortbread</button>
@@ -26,43 +44,23 @@
                     </div>
                 </div>
 
-                <div class="question" data-question="1">
-                    <h2>When do you usually eat cookies?</h2>
+                <div class="question" data-question="3" data-type="choice">
+                    <h2>Question 4: When do you usually eat cookies?</h2>
                     <div class="options">
-                        <button class="option" data-value="morning">Morning snack</button>
-                        <button class="option" data-value="after-school">After school</button>
-                        <button class="option" data-value="late-night">Late-night treat</button>
-                        <button class="option" data-value="stressed">Whenever I'm stressed! 😋</button>
+                        <button class="option" data-value="morning">🌞 Morning snack</button>
+                        <button class="option" data-value="after-school">🎒 After school</button>
+                        <button class="option" data-value="late-night">🌙 Late-night treat</button>
+                        <button class="option" data-value="stressed">😅 Whenever I'm stressed!</button>
                     </div>
                 </div>
 
-                <div class="question" data-question="2">
-                    <h2>Who do you share your cookies with?</h2>
+                <div class="question" data-question="4" data-type="choice">
+                    <h2>Question 5: Where do you usually get your cookies?</h2>
                     <div class="options">
-                        <button class="option" data-value="friends">Friends</button>
-                        <button class="option" data-value="family">Family</button>
-                        <button class="option" data-value="pets">Pets</button>
-                        <button class="option" data-value="self">I keep them all for myself 😋</button>
-                    </div>
-                </div>
-
-                <div class="question" data-question="3">
-                    <h2>What's your favorite holiday activity?</h2>
-                    <div class="options">
-                        <button class="option" data-value="tree">Decorating the tree 🎄</button>
-                        <button class="option" data-value="movies">Watching movies 🎥</button>
-                        <button class="option" data-value="shopping">Shopping for gifts 🎁</button>
-                        <button class="option" data-value="social">Posting on social media 📱</button>
-                    </div>
-                </div>
-
-                <div class="question" data-question="4">
-                    <h2>Where do you usually get your cookies?</h2>
-                    <div class="options">
-                        <button class="option" data-value="bakery">Local bakery</button>
-                        <button class="option" data-value="online">Online shop</button>
-                        <button class="option" data-value="supermarket">Supermarket</button>
-                        <button class="option" data-value="bake">I bake them myself!</button>
+                        <button class="option" data-value="bakery">🍞 Local bakery</button>
+                        <button class="option" data-value="online">💻 Online shop</button>
+                        <button class="option" data-value="supermarket">🏪 Supermarket</button>
+                        <button class="option" data-value="bake">👩‍🍳 I bake them myself!</button>
                     </div>
                 </div>
             </div>
@@ -72,33 +70,17 @@
             </div>
         </div>
 
-        <!-- Part 2: Personality Result -->
-        <div id="result-section" class="section">
-            <div class="result-container">
-                <div class="celebration">🎉</div>
-                <h1 id="result-title">You are a Cinnamon Dream Cookie!</h1>
-                <p id="result-description" class="result-text">
-                    Sweet, kind-hearted, and always ready to share your last bite!<br>
-                    You love cozy nights, warm lights, and baking with friends.
-                </p>
-                <button id="reveal-btn" class="reveal-button">See More Details</button>
-            </div>
-        </div>
-
-        <!-- Part 3: The Reveal -->
+        <!-- Part 2: CookieBot's Response -->
         <div id="reveal-section" class="section">
             <div class="reveal-container">
                 <div class="cookiebot">
                     <div class="bot-icon">🤖</div>
-                    <h2>CookieBot's Analysis</h2>
+                    <h2>COOKIEBOT'S RESPONSE</h2>
                 </div>
                 
                 <div class="reveal-message">
-                    <p class="bot-text">
-                        "Thanks for the info, Junior Baker! I've learned so much about you already!"
-                    </p>
-                    <p class="bot-text">
-                        Let's see what I've figured out from your answers:
+                    <p class="bot-text" id="reveal-greeting">
+                        "Thanks, <span id="reveal-name"></span>! Here's what I learned about you:"
                     </p>
                 </div>
 
@@ -107,11 +89,17 @@
                 </div>
 
                 <div class="data-progress">
-                    <p class="progress-label">🍪 Data Collected:</p>
+                    <p class="progress-label">📊 Data Collected:</p>
                     <div class="progress-bar-large">
                         <div class="progress-fill-large" id="data-progress-bar"></div>
                     </div>
-                    <span class="progress-percentage" id="progress-percentage">90%</span>
+                    <span class="progress-percentage" id="progress-percentage">95%</span>
+                </div>
+
+                <div class="cloud-message">
+                    <p class="bot-text cloud-text">
+                        🤖 "Yum! I've stored your name, age, and preferences safely in my cloud!"
+                    </p>
                 </div>
 
                 <button id="restart-btn" class="restart-button">Take Quiz Again</button>
@@ -122,4 +110,5 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
