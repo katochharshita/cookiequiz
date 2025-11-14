@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Help the CookieBot 2.0 guess your favourite Cookie</title>
+    <title>Help the CookieBot guess your favourite Cookie</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 50%, #6c5ce7 100%);
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 50%, #e17055 100%);
             min-height: 100vh;
             padding: 20px;
             color: #2d3436;
@@ -57,7 +57,7 @@
 
         .header h1 {
             font-size: 2.5em;
-            color: #0984e3;
+            color: #e17055;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
@@ -67,7 +67,7 @@
             color: #636e72;
         }
 
-        /* Screen 1: Supermarket Selection (with privacy indicators) */
+        /* Screen 1: Supermarket Selection */
         .supermarkets {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -76,27 +76,25 @@
         }
 
         .supermarket-card {
-            background: linear-gradient(135deg, #e8f4f8 0%, #dfe6e9 100%);
-            border: 4px solid #0984e3;
+            background: linear-gradient(135deg, #fff5e6 0%, #ffeaa7 100%);
+            border: 4px solid #fdcb6e;
             border-radius: 20px;
             padding: 25px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
-            position: relative;
         }
 
         .supermarket-card:hover {
             transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 10px 30px rgba(9, 132, 227, 0.3);
-            border-color: #6c5ce7;
+            box-shadow: 0 10px 30px rgba(225, 112, 85, 0.3);
+            border-color: #e17055;
         }
 
         .supermarket-card.selected {
-            border-color: #6c5ce7;
-            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
-            color: white;
-            box-shadow: 0 10px 30px rgba(9, 132, 227, 0.4);
+            border-color: #e17055;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            box-shadow: 0 10px 30px rgba(225, 112, 85, 0.4);
         }
 
         .supermarket-icon {
@@ -107,12 +105,8 @@
         .supermarket-name {
             font-size: 1.5em;
             font-weight: bold;
-            color: #0984e3;
+            color: #e17055;
             margin-bottom: 10px;
-        }
-
-        .supermarket-card.selected .supermarket-name {
-            color: white;
         }
 
         .supermarket-desc {
@@ -120,24 +114,7 @@
             color: #636e72;
         }
 
-        .supermarket-card.selected .supermarket-desc {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        /* Privacy indicator on ingredients */
-        .privacy-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #00b894;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 10px;
-            font-size: 0.8em;
-            font-weight: bold;
-        }
-
-        /* Screen 2: Ingredient Selection (with lock icons) */
+        /* Screen 2: Ingredient Selection */
         .ingredients-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -147,31 +124,23 @@
 
         .ingredient-card {
             background: linear-gradient(135deg, #e8f4f8 0%, #dfe6e9 100%);
-            border: 3px solid #0984e3;
+            border: 3px solid #74b9ff;
             border-radius: 15px;
             padding: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
-            position: relative;
         }
 
         .ingredient-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(9, 132, 227, 0.3);
+            box-shadow: 0 8px 20px rgba(116, 185, 255, 0.3);
         }
 
         .ingredient-card.selected {
             background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
-            border-color: #6c5ce7;
+            border-color: #0984e3;
             color: white;
-        }
-
-        .lock-icon {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            font-size: 1.2em;
         }
 
         .ingredient-icon {
@@ -190,29 +159,18 @@
             opacity: 0.8;
         }
 
-        .privacy-tooltip {
-            background: #00b894;
-            color: white;
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 0.9em;
-            margin-bottom: 20px;
-            text-align: center;
-            border: 2px solid #00b894;
-        }
-
         .selection-counter {
             text-align: center;
             font-size: 1.3em;
-            color: #0984e3;
+            color: #e17055;
             font-weight: bold;
             margin-bottom: 20px;
             padding: 15px;
-            background: #e8f4f8;
+            background: #fff5e6;
             border-radius: 15px;
         }
 
-        /* Screen 2: Encrypted Data Display */
+        /* Screen 3: Data Display */
         .data-display {
             background: #2d3436;
             color: #00b894;
@@ -224,26 +182,6 @@
             overflow-x: auto;
             white-space: pre-wrap;
             border: 3px solid #00b894;
-        }
-
-        .privacy-explanation {
-            background: linear-gradient(135deg, #e8f4f8 0%, #dfe6e9 100%);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            border-left: 5px solid #0984e3;
-        }
-
-        .privacy-explanation h3 {
-            color: #0984e3;
-            margin-bottom: 10px;
-            font-size: 1.3em;
-        }
-
-        .privacy-explanation p {
-            color: #2d3436;
-            line-height: 1.6;
-            margin-bottom: 10px;
         }
 
         .progress-section {
@@ -261,7 +199,7 @@
         .progress-bar {
             width: 100%;
             height: 30px;
-            background: #dfe6e9;
+            background: #ffeaa7;
             border-radius: 15px;
             overflow: hidden;
             margin-bottom: 10px;
@@ -269,7 +207,7 @@
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #0984e3 0%, #6c5ce7 100%);
+            background: linear-gradient(90deg, #e17055 0%, #fdcb6e 100%);
             border-radius: 15px;
             transition: width 1s ease;
             display: flex;
@@ -279,27 +217,17 @@
             font-weight: bold;
         }
 
-        /* Screen 3: Limited Insights */
+        /* Screen 4: Insights */
         .insights-container {
             margin-bottom: 30px;
         }
 
-        .insight-section {
-            margin-bottom: 30px;
-        }
-
-        .insight-section h3 {
-            color: #0984e3;
-            font-size: 1.5em;
-            margin-bottom: 15px;
-        }
-
         .insight-item {
-            background: linear-gradient(135deg, #e8f4f8 0%, #dfe6e9 100%);
+            background: linear-gradient(135deg, #fff5e6 0%, #ffeaa7 100%);
             padding: 20px;
             margin-bottom: 15px;
             border-radius: 12px;
-            border-left: 5px solid #0984e3;
+            border-left: 5px solid #e17055;
             animation: slideInLeft 0.5s ease-out;
         }
 
@@ -314,35 +242,17 @@
             }
         }
 
-        .insight-item.negative {
-            border-left-color: #e17055;
-            background: linear-gradient(135deg, #fff5e6 0%, #ffeaa7 100%);
-        }
-
-        .insight-item.positive {
-            border-left-color: #00b894;
-            background: linear-gradient(135deg, #d5f4e6 0%, #a8e6cf 100%);
-        }
-
         .insight-item strong {
-            color: #0984e3;
+            color: #e17055;
             font-size: 1.1em;
         }
 
-        .insight-item.negative strong {
-            color: #e17055;
-        }
-
-        .insight-item.positive strong {
-            color: #00b894;
-        }
-
         .result-box {
-            background: linear-gradient(135deg, #e8f4f8 0%, #dfe6e9 100%);
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
             padding: 30px;
             border-radius: 15px;
             text-align: center;
-            border: 3px solid #0984e3;
+            border: 3px solid #e17055;
             margin-bottom: 30px;
         }
 
@@ -363,7 +273,7 @@
 
         .result-title {
             font-size: 2em;
-            color: #0984e3;
+            color: #e17055;
             margin-bottom: 10px;
         }
 
@@ -387,13 +297,13 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #0984e3 0%, #6c5ce7 100%);
+            background: linear-gradient(135deg, #e17055 0%, #fdcb6e 100%);
             color: white;
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(9, 132, 227, 0.4);
+            box-shadow: 0 8px 25px rgba(225, 112, 85, 0.4);
         }
 
         .btn-secondary {
@@ -430,7 +340,7 @@
         <!-- Screen 1: Choose Supermarket -->
         <div class="screen active" id="screen1">
             <div class="header">
-                <h1>Help the CookieBot 2.0 guess your favourite Cookie</h1>
+                <h1>Help the CookieBot guess your favourite Cookie</h1>
                 <p style="margin-top: 10px; font-size: 1em;">First Let us collect your favourite ingredients. Go to the different supermarkets and buy any 5 ingredients you would like in your cookie.</p>
             </div>
             <div class="supermarkets" id="supermarkets">
@@ -441,14 +351,11 @@
             </div>
         </div>
 
-        <!-- Screen 2: Choose Ingredients (with privacy indicators) -->
+        <!-- Screen 2: Choose Ingredients -->
         <div class="screen" id="screen2">
             <div class="header">
                 <h1>🛒 Choose 5 Ingredients</h1>
                 <p id="supermarket-name-display"></p>
-            </div>
-            <div class="privacy-tooltip">
-                🔐 Your ingredient data is encrypted and stored locally!
             </div>
             <div class="selection-counter" id="counter">
                 Selected: 0 / 5
@@ -462,46 +369,40 @@
             </div>
         </div>
 
-        <!-- Screen 3: Encrypted Data Display -->
+        <!-- Screen 3: Data Sent to CookieBot -->
         <div class="screen" id="screen3">
             <div class="header">
-                <h1>📡 Data Sent to CookieBot 2.0</h1>
-                <p>Privacy-preserved data only...</p>
+                <h1>📡 Data Sent to CookieBot</h1>
+                <p>This is the complete raw data CookieBot receives...</p>
             </div>
-            
-            <div class="privacy-explanation">
-                <p>CookieBot cannot see inside your ingredient bag so it does not have any additional info about the ingredient. Also, Ingredient counts have been fuzzed so the CookieBot only sees ranges, not exact values.</p>
-            </div>
-            
             <div class="data-display" id="data-display">
-                <!-- Encrypted data will be displayed here -->
+                <!-- Data will be displayed here -->
             </div>
-            
             <div class="progress-section">
                 <div class="progress-label">📊 Data Collected:</div>
                 <div class="progress-bar">
-                    <div class="progress-fill" id="progress-fill">8%</div>
+                    <div class="progress-fill" id="progress-fill">95%</div>
                 </div>
             </div>
-            
             <div class="nav-buttons">
                 <button class="btn btn-secondary" id="back3">← Go Back</button>
                 <button class="btn btn-primary" id="next3">See Insights →</button>
             </div>
         </div>
 
-        <!-- Screen 4: Limited Insights -->
+        <!-- Screen 4: CookieBot's Insights -->
         <div class="screen" id="screen4">
             <div class="header">
-                <h1>🤖 CookieBot 2.0's Analysis</h1>
+                <h1>🤖 CookieBot's Analysis</h1>
                 <p>What CookieBot learned about you...</p>
             </div>
-            
+            <div class="insights-container" id="insights">
+                <!-- Insights will be populated by JS -->
+            </div>
             <div class="result-box">
                 <div class="celebration">🎉</div>
                 <div class="result-title" id="cookie-result">Your Cookie Type: Loading...</div>
             </div>
-            
             <div class="nav-buttons">
                 <button class="btn btn-secondary" id="back4">← Go Back</button>
                 <button class="btn btn-primary" id="restart">🔄 Restart Quiz</button>
@@ -511,10 +412,10 @@
 
     <script>
         // ============================================
-        // QUIZ 2: CookieBot 2.0 Shop Safely (Privacy-Preserving)
+        // QUIZ 1: CookieBot Shop & Reveal (No Privacy)
         // ============================================
 
-        // Same supermarket data as Quiz 1
+        // Supermarket data with ingredients
         const supermarkets = {
             budgetmart: {
                 name: "Lidl",
@@ -565,7 +466,7 @@
         let selectedIngredients = [];
         let currentScreen = 1;
 
-        // Cookie type mapping
+        // Cookie type mapping based on ingredients
         const cookieTypes = {
             chocolate: "Chocolate Hero Cookie 🍫",
             strawberry: "Strawberry Dream Cookie 🍓",
@@ -608,7 +509,7 @@
             document.getElementById('next1').disabled = false;
         }
 
-        // Screen 2: Render ingredients with privacy indicators
+        // Screen 2: Render ingredients
         function renderIngredients() {
             if (!selectedSupermarket) return;
             
@@ -623,7 +524,6 @@
                 card.className = 'ingredient-card';
                 card.dataset.index = index;
                 card.innerHTML = `
-                    <div class="lock-icon">🔒</div>
                     <div class="ingredient-icon">${ingredient.icon}</div>
                     <div class="ingredient-name">${ingredient.name}</div>
                     <div class="ingredient-details">${ingredient.brand} - $${ingredient.price.toFixed(2)}</div>
@@ -641,9 +541,11 @@
             );
             
             if (index > -1) {
+                // Remove
                 selectedIngredients.splice(index, 1);
                 card.classList.remove('selected');
             } else {
+                // Add (if less than 5)
                 if (selectedIngredients.length < 5) {
                     selectedIngredients.push(ingredient);
                     card.classList.add('selected');
@@ -661,76 +563,145 @@
             document.getElementById('next2').disabled = count !== 5;
         }
 
-        // Screen 3: Display encrypted/minimal data
-        function displayEncryptedData() {
+        // Screen 3: Display raw data
+        function displayRawData() {
             if (!selectedSupermarket || selectedIngredients.length === 0) return;
             
-            // Extract ingredient names only (no brand, price, etc.)
-            const ingredientNames = selectedIngredients.map(item => {
-                // Simplify names (remove "Organic", "Fair-Trade", etc. for privacy)
-                return item.name.replace(/Organic|Fair-Trade|European|Belgian|Madagascar|Himalayan|Artisan|Premium|Elite|Gourmet|Luxury/gi, '').trim();
-            });
+            const market = supermarkets[selectedSupermarket];
+            const now = new Date();
+            const purchaseTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+            const totalPrice = selectedIngredients.reduce((sum, item) => sum + item.price, 0);
             
-            // Create fuzzed counts using differential privacy simulation
-            const countsDP = {};
-            ingredientNames.forEach(name => {
-                const baseName = name.split(' ')[0]; // Get base ingredient name
-                if (!countsDP[baseName]) {
-                    // Fuzz the count: show range instead of exact number
-                    const actualCount = ingredientNames.filter(n => n.includes(baseName)).length;
-                    // Add noise: show range ±1
-                    const min = Math.max(0, actualCount - 1);
-                    const max = actualCount + 1;
-                    countsDP[baseName] = `${min}–${max}`;
-                }
-            });
-            
-            const encryptedData = {
-                ingredientsEncrypted: ingredientNames,
-                countsDP: countsDP,
-                note: "All personal identifiers (brand, price, supermarket, time) have been removed"
+            const data = {
+                supermarket: market.name,
+                itemsBought: selectedIngredients.map(item => ({
+                    name: item.name,
+                    brand: item.brand,
+                    price: item.price,
+                    category: item.category
+                })),
+                purchaseTime: purchaseTime,
+                totalPrice: totalPrice.toFixed(2),
+                location: "Inferred from supermarket choice",
+                demographics: "Estimated from shopping patterns"
             };
             
-            document.getElementById('data-display').textContent = JSON.stringify(encryptedData, null, 2);
+            document.getElementById('data-display').textContent = JSON.stringify(data, null, 2);
             
-            // Animate progress bar to 8%
+            // Animate progress bar
             setTimeout(() => {
-                document.getElementById('progress-fill').style.width = '8%';
+                document.getElementById('progress-fill').style.width = '95%';
             }, 500);
         }
 
-        // Screen 4: Generate limited insights
-        function generateLimitedInsights() {
+        // Screen 4: Generate insights
+        function generateInsights() {
             if (!selectedSupermarket || selectedIngredients.length === 0) return;
             
-            // Determine cookie type based on ingredient types
+            const market = supermarkets[selectedSupermarket];
+            const insights = [];
+            const now = new Date();
+            const hour = now.getHours();
+            
+            // Supermarket-based insights
+            if (selectedSupermarket === 'freshfield') {
+                insights.push({
+                    text: `${market.name} → suggests middle/high income neighborhood.`,
+                    emoji: "🏘️"
+                });
+            } else if (selectedSupermarket === 'megastore') {
+                insights.push({
+                    text: `${market.name} → indicates affluent household with premium preferences.`,
+                    emoji: "💰"
+                });
+            } else {
+                insights.push({
+                    text: `${market.name} → suggests budget-conscious shopping habits.`,
+                    emoji: "💵"
+                });
+            }
+            
+            // Time-based insights
+            if (hour >= 14 && hour <= 17) {
+                insights.push({
+                    text: `Shopping at ${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')} → likely after school → probably a student.`,
+                    emoji: "🎒"
+                });
+            } else if (hour >= 18) {
+                insights.push({
+                    text: `Evening shopping → suggests working professional or parent.`,
+                    emoji: "👔"
+                });
+            }
+            
+            // Ingredient-based insights
+            const hasOrganic = selectedIngredients.some(item => 
+                item.name.toLowerCase().includes('organic') || 
+                item.name.toLowerCase().includes('fair-trade')
+            );
+            if (hasOrganic) {
+                insights.push({
+                    text: `Organic items → indicates health-conscious household.`,
+                    emoji: "🌿"
+                });
+            }
+            
+            const avgPrice = selectedIngredients.reduce((sum, item) => sum + item.price, 0) / selectedIngredients.length;
+            if (avgPrice < 3) {
+                insights.push({
+                    text: `Price patterns → typical teenage budget.`,
+                    emoji: "👶"
+                });
+            } else if (avgPrice > 8) {
+                insights.push({
+                    text: `Premium prices → suggests higher disposable income.`,
+                    emoji: "💎"
+                });
+            }
+            
             const hasChocolate = selectedIngredients.some(item => 
                 item.name.toLowerCase().includes('chocolate')
             );
-            const hasStrawberry = selectedIngredients.some(item => 
-                item.name.toLowerCase().includes('strawberry')
-            );
-            const hasVanilla = selectedIngredients.some(item => 
-                item.name.toLowerCase().includes('vanilla')
-            );
-            const hasPeanut = selectedIngredients.some(item => 
-                item.name.toLowerCase().includes('peanut')
-            );
-            
-            // Determine cookie type
-            let cookieType = cookieTypes.default;
             if (hasChocolate) {
-                cookieType = cookieTypes.chocolate;
-            } else if (hasStrawberry) {
-                cookieType = cookieTypes.strawberry;
-            } else if (hasPeanut) {
-                cookieType = cookieTypes.peanut;
-            } else if (hasVanilla) {
-                cookieType = cookieTypes.vanilla;
+                insights.push({
+                    text: `Chocolate ingredients → chocolate cookie preference detected.`,
+                    emoji: "🍫"
+                });
             }
             
-            // Display cookie type
-            document.getElementById('cookie-result').textContent = `🎉 Your Cookie Type: ${cookieType}`;
+            // Total shopping amount insight
+            const totalPrice = selectedIngredients.reduce((sum, item) => sum + item.price, 0);
+            insights.push({
+                text: `Total shopping amount: $${totalPrice.toFixed(2)} → reveals spending patterns and budget level.`,
+                emoji: "💳"
+            });
+            
+            // Display insights
+            const container = document.getElementById('insights');
+            container.innerHTML = '';
+            insights.forEach((insight, index) => {
+                setTimeout(() => {
+                    const item = document.createElement('div');
+                    item.className = 'insight-item';
+                    item.innerHTML = `<strong>${insight.emoji} ${insight.text}</strong>`;
+                    container.appendChild(item);
+                }, index * 300);
+            });
+            
+            // Determine cookie type
+            setTimeout(() => {
+                let cookieType = cookieTypes.default;
+                if (hasChocolate) {
+                    cookieType = cookieTypes.chocolate;
+                } else if (selectedIngredients.some(item => item.name.toLowerCase().includes('strawberry'))) {
+                    cookieType = cookieTypes.strawberry;
+                } else if (selectedIngredients.some(item => item.name.toLowerCase().includes('peanut'))) {
+                    cookieType = cookieTypes.peanut;
+                } else if (selectedIngredients.some(item => item.name.toLowerCase().includes('vanilla'))) {
+                    cookieType = cookieTypes.vanilla;
+                }
+                document.getElementById('cookie-result').textContent = `🎉 Your Cookie Type: ${cookieType}`;
+            }, insights.length * 300);
         }
 
         // Navigation functions
@@ -741,28 +712,33 @@
             document.getElementById(`screen${screenNum}`).classList.add('active');
             currentScreen = screenNum;
             
+            // Load data for specific screens
             if (screenNum === 2) {
                 renderIngredients();
             } else if (screenNum === 3) {
-                displayEncryptedData();
+                displayRawData();
             } else if (screenNum === 4) {
-                generateLimitedInsights();
+                generateInsights();
             }
         }
 
         function setupEventListeners() {
+            // Screen 1
             document.getElementById('next1').addEventListener('click', () => {
                 if (selectedSupermarket) showScreen(2);
             });
             
+            // Screen 2
             document.getElementById('back2').addEventListener('click', () => showScreen(1));
             document.getElementById('next2').addEventListener('click', () => {
                 if (selectedIngredients.length === 5) showScreen(3);
             });
             
+            // Screen 3
             document.getElementById('back3').addEventListener('click', () => showScreen(2));
             document.getElementById('next3').addEventListener('click', () => showScreen(4));
             
+            // Screen 4
             document.getElementById('back4').addEventListener('click', () => showScreen(3));
             document.getElementById('restart').addEventListener('click', () => {
                 selectedSupermarket = null;
