@@ -29,6 +29,54 @@
             position: relative;
         }
 
+        .language-bar {
+            background: linear-gradient(135deg, #fff5e6 0%, #ffeaa7 100%);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            border-bottom: 2px solid #fdcb6e;
+        }
+
+        .language-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .language-selector label {
+            font-size: 0.95em;
+            color: #636e72;
+            font-weight: 600;
+        }
+
+        .language-selector select {
+            padding: 10px 20px;
+            font-size: 0.95em;
+            border: 2px solid #e17055;
+            border-radius: 15px;
+            background: white;
+            color: #2d3436;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            min-width: 150px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .language-selector select:hover {
+            background: #fff5e6;
+            border-color: #fdcb6e;
+            box-shadow: 0 4px 12px rgba(225, 112, 85, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .language-selector select:focus {
+            outline: none;
+            border-color: #e17055;
+            box-shadow: 0 4px 12px rgba(225, 112, 85, 0.3);
+        }
+
         .screen {
             display: none;
             padding: 40px;
@@ -332,80 +380,107 @@
             .ingredients-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
+            .language-bar {
+                padding: 12px 20px;
+            }
+            .language-selector {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 8px;
+            }
+            .language-selector label {
+                font-size: 0.85em;
+            }
+            .language-selector select {
+                padding: 8px 15px;
+                font-size: 0.85em;
+                min-width: 130px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="language-bar">
+            <div class="language-selector">
+                <label for="language-selector">🌐 Language:</label>
+                <select id="language-selector">
+                    <option value="en">🇬🇧 English</option>
+                    <option value="de">🇩🇪 Deutsch</option>
+                    <option value="es">🇪🇸 Español</option>
+                    <option value="pt">🇵🇹 Português</option>
+                </select>
+            </div>
+        </div>
         <!-- Screen 1: Choose Supermarket -->
         <div class="screen active" id="screen1">
             <div class="header">
-                <h1>Help the CookieBot guess your favourite Cookie</h1>
-                <p style="margin-top: 10px; font-size: 1em;">First Let us collect your favourite ingredients. Go to the different supermarkets and buy any 5 ingredients you would like in your cookie.</p>
+                <h1 data-translate="title">Help the CookieBot guess your favourite Cookie</h1>
+                <p style="margin-top: 10px; font-size: 1em;" data-translate="subtitle">First Let us collect your favourite ingredients. Go to the different supermarkets and buy any 5 ingredients you would like in your cookie.</p>
             </div>
             <div class="supermarkets" id="supermarkets">
                 <!-- Supermarkets will be populated by JS -->
             </div>
             <div class="nav-buttons">
-                <button class="btn btn-primary" id="next1" disabled>Next →</button>
+                <button class="btn btn-primary" id="next1" disabled data-translate="next">Next →</button>
             </div>
         </div>
 
         <!-- Screen 2: Choose Ingredients -->
         <div class="screen" id="screen2">
             <div class="header">
-                <h1>🛒 Choose 5 Ingredients</h1>
+                <h1 data-translate="chooseIngredients">🛒 Choose 5 Ingredients</h1>
                 <p id="supermarket-name-display"></p>
             </div>
-            <div class="selection-counter" id="counter">
+            <div class="selection-counter" id="counter" data-translate="selected">
                 Selected: 0 / 5
             </div>
             <div class="ingredients-grid" id="ingredients">
                 <!-- Ingredients will be populated by JS -->
             </div>
             <div class="nav-buttons">
-                <button class="btn btn-secondary" id="back2">← Go Back</button>
-                <button class="btn btn-primary" id="next2" disabled>Next →</button>
+                <button class="btn btn-secondary" id="back2" data-translate="goBack">← Go Back</button>
+                <button class="btn btn-primary" id="next2" disabled data-translate="next">Next →</button>
             </div>
         </div>
 
         <!-- Screen 3: Data Sent to CookieBot -->
         <div class="screen" id="screen3">
             <div class="header">
-                <h1>📡 Data Sent to CookieBot</h1>
-                <p>This is the complete raw data CookieBot receives...</p>
+                <h1 data-translate="dataSent">📡 Data Sent to CookieBot</h1>
+                <p data-translate="dataDescription">This is the complete raw data CookieBot receives...</p>
             </div>
             <div class="data-display" id="data-display">
                 <!-- Data will be displayed here -->
             </div>
             <div class="progress-section">
-                <div class="progress-label">📊 Data Collected:</div>
+                <div class="progress-label" data-translate="dataCollected">📊 Data Collected:</div>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progress-fill">95%</div>
                 </div>
             </div>
             <div class="nav-buttons">
-                <button class="btn btn-secondary" id="back3">← Go Back</button>
-                <button class="btn btn-primary" id="next3">See Insights →</button>
+                <button class="btn btn-secondary" id="back3" data-translate="goBack">← Go Back</button>
+                <button class="btn btn-primary" id="next3" data-translate="seeInsights">See Insights →</button>
             </div>
         </div>
 
         <!-- Screen 4: CookieBot's Insights -->
         <div class="screen" id="screen4">
             <div class="header">
-                <h1>🤖 CookieBot's Analysis</h1>
-                <p>What CookieBot learned about you...</p>
+                <h1 data-translate="analysis">🤖 CookieBot's Analysis</h1>
+                <p data-translate="learned">What CookieBot learned about you...</p>
             </div>
             <div class="insights-container" id="insights">
                 <!-- Insights will be populated by JS -->
             </div>
             <div class="result-box">
                 <div class="celebration">🎉</div>
-                <div class="result-title" id="cookie-result">Your Cookie Type: Loading...</div>
+                <div class="result-title" id="cookie-result" data-translate="cookieType">Your Cookie Type: Loading...</div>
             </div>
             <div class="nav-buttons">
-                <button class="btn btn-secondary" id="back4">← Go Back</button>
-                <button class="btn btn-primary" id="restart">🔄 Restart Quiz</button>
+                <button class="btn btn-secondary" id="back4" data-translate="goBack">← Go Back</button>
+                <button class="btn btn-primary" id="restart" data-translate="restart">🔄 Restart Quiz</button>
             </div>
         </div>
     </div>
@@ -414,6 +489,161 @@
         // ============================================
         // QUIZ 1: CookieBot Shop & Reveal (No Privacy)
         // ============================================
+
+        // Translation system
+        const translations = {
+            en: {
+                title: "Help the CookieBot guess your favourite Cookie",
+                subtitle: "First Let us collect your favourite ingredients. Go to the different supermarkets and buy any 5 ingredients you would like in your cookie.",
+                next: "Next →",
+                goBack: "← Go Back",
+                chooseIngredients: "🛒 Choose 5 Ingredients",
+                selected: "Selected: 0 / 5",
+                shoppingAt: "Shopping at",
+                dataSent: "📡 Data Sent to CookieBot",
+                dataDescription: "This is the complete raw data CookieBot receives...",
+                dataCollected: "📊 Data Collected:",
+                seeInsights: "See Insights →",
+                analysis: "🤖 CookieBot's Analysis",
+                learned: "What CookieBot learned about you...",
+                cookieType: "Your Cookie Type:",
+                loading: "Loading...",
+                restart: "🔄 Restart Quiz",
+                youCanOnlySelect: "You can only select 5 ingredients!",
+                totalShopping: "Total shopping amount:",
+                revealsSpending: "→ reveals spending patterns and budget level.",
+                suggestsIncome: "→ suggests middle/high income neighborhood.",
+                indicatesAffluent: "→ indicates affluent household with premium preferences.",
+                suggestsBudget: "→ suggests budget-conscious shopping habits.",
+                likelyStudent: "→ likely after school → probably a student.",
+                eveningShopping: "Evening shopping → suggests working professional or parent.",
+                healthConscious: "Organic items → indicates health-conscious household.",
+                teenageBudget: "Price patterns → typical teenage budget.",
+                higherIncome: "Premium prices → suggests higher disposable income.",
+                chocolatePreference: "Chocolate ingredients → chocolate cookie preference detected."
+            },
+            de: {
+                title: "Hilf dem CookieBot, dein Lieblingskeks zu erraten",
+                subtitle: "Zuerst sammeln wir deine Lieblingszutaten. Gehe zu den verschiedenen Supermärkten und kaufe 5 Zutaten, die du in deinem Keks haben möchtest.",
+                next: "Weiter →",
+                goBack: "← Zurück",
+                chooseIngredients: "🛒 Wähle 5 Zutaten",
+                selected: "Ausgewählt: 0 / 5",
+                shoppingAt: "Einkaufen bei",
+                dataSent: "📡 An CookieBot gesendete Daten",
+                dataDescription: "Dies sind die vollständigen Rohdaten, die CookieBot erhält...",
+                dataCollected: "📊 Gesammelte Daten:",
+                seeInsights: "Einblicke anzeigen →",
+                analysis: "🤖 CookieBot's Analyse",
+                learned: "Was CookieBot über dich gelernt hat...",
+                cookieType: "Dein Kekstyp:",
+                loading: "Lädt...",
+                restart: "🔄 Quiz neu starten",
+                youCanOnlySelect: "Du kannst nur 5 Zutaten auswählen!",
+                totalShopping: "Gesamteinkaufsbetrag:",
+                revealsSpending: "→ zeigt Ausgabemuster und Budgetniveau.",
+                suggestsIncome: "→ deutet auf mittleres/hohes Einkommen hin.",
+                indicatesAffluent: "→ deutet auf wohlhabenden Haushalt mit Premium-Präferenzen hin.",
+                suggestsBudget: "→ deutet auf budgetbewusste Einkaufsgewohnheiten hin.",
+                likelyStudent: "→ wahrscheinlich nach der Schule → wahrscheinlich ein Schüler.",
+                eveningShopping: "Abendeinkauf → deutet auf Berufstätigen oder Elternteil hin.",
+                healthConscious: "Bio-Produkte → deutet auf gesundheitsbewussten Haushalt hin.",
+                teenageBudget: "Preismuster → typisches Teenager-Budget.",
+                higherIncome: "Premium-Preise → deutet auf höheres verfügbares Einkommen hin.",
+                chocolatePreference: "Schokoladenzutaten → Schokoladenkeks-Präferenz erkannt."
+            },
+            es: {
+                title: "Ayuda al CookieBot a adivinar tu galleta favorita",
+                subtitle: "Primero recopilemos tus ingredientes favoritos. Ve a los diferentes supermercados y compra 5 ingredientes que te gustaría tener en tu galleta.",
+                next: "Siguiente →",
+                goBack: "← Volver",
+                chooseIngredients: "🛒 Elige 5 Ingredientes",
+                selected: "Seleccionado: 0 / 5",
+                shoppingAt: "Comprando en",
+                dataSent: "📡 Datos Enviados a CookieBot",
+                dataDescription: "Estos son los datos completos que CookieBot recibe...",
+                dataCollected: "📊 Datos Recopilados:",
+                seeInsights: "Ver Información →",
+                analysis: "🤖 Análisis de CookieBot",
+                learned: "Lo que CookieBot aprendió sobre ti...",
+                cookieType: "Tu Tipo de Galleta:",
+                loading: "Cargando...",
+                restart: "🔄 Reiniciar Quiz",
+                youCanOnlySelect: "¡Solo puedes seleccionar 5 ingredientes!",
+                totalShopping: "Monto total de compras:",
+                revealsSpending: "→ revela patrones de gasto y nivel de presupuesto.",
+                suggestsIncome: "→ sugiere vecindario de ingresos medios/altos.",
+                indicatesAffluent: "→ indica hogar adinerado con preferencias premium.",
+                suggestsBudget: "→ sugiere hábitos de compra conscientes del presupuesto.",
+                likelyStudent: "→ probablemente después de la escuela → probablemente un estudiante.",
+                eveningShopping: "Compras nocturnas → sugiere profesional trabajador o padre.",
+                healthConscious: "Artículos orgánicos → indica hogar consciente de la salud.",
+                teenageBudget: "Patrones de precios → presupuesto típico de adolescente.",
+                higherIncome: "Precios premium → sugiere mayor ingreso disponible.",
+                chocolatePreference: "Ingredientes de chocolate → preferencia de galleta de chocolate detectada."
+            },
+            pt: {
+                title: "Ajude o CookieBot a adivinhar seu biscoito favorito",
+                subtitle: "Primeiro vamos coletar seus ingredientes favoritos. Vá aos diferentes supermercados e compre 5 ingredientes que você gostaria de ter no seu biscoito.",
+                next: "Próximo →",
+                goBack: "← Voltar",
+                chooseIngredients: "🛒 Escolha 5 Ingredientes",
+                selected: "Selecionado: 0 / 5",
+                shoppingAt: "Comprando em",
+                dataSent: "📡 Dados Enviados ao CookieBot",
+                dataDescription: "Estes são os dados completos que o CookieBot recebe...",
+                dataCollected: "📊 Dados Coletados:",
+                seeInsights: "Ver Informações →",
+                analysis: "🤖 Análise do CookieBot",
+                learned: "O que o CookieBot aprendeu sobre você...",
+                cookieType: "Seu Tipo de Biscoito:",
+                loading: "Carregando...",
+                restart: "🔄 Reiniciar Quiz",
+                youCanOnlySelect: "Você só pode selecionar 5 ingredientes!",
+                totalShopping: "Valor total das compras:",
+                revealsSpending: "→ revela padrões de gastos e nível de orçamento.",
+                suggestsIncome: "→ sugere bairro de renda média/alta.",
+                indicatesAffluent: "→ indica família abastada com preferências premium.",
+                suggestsBudget: "→ sugere hábitos de compra conscientes do orçamento.",
+                likelyStudent: "→ provavelmente após a escola → provavelmente um estudante.",
+                eveningShopping: "Compras noturnas → sugere profissional trabalhador ou pai.",
+                healthConscious: "Itens orgânicos → indica família consciente da saúde.",
+                teenageBudget: "Padrões de preço → orçamento típico de adolescente.",
+                higherIncome: "Preços premium → sugere maior renda disponível.",
+                chocolatePreference: "Ingredientes de chocolate → preferência por biscoito de chocolate detectada."
+            }
+        };
+
+        let currentLanguage = 'en';
+
+        // Translation function
+        function translate(key) {
+            return translations[currentLanguage][key] || translations.en[key] || key;
+        }
+
+        // Update all text elements
+        function updateLanguage() {
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (element.tagName === 'BUTTON' || element.tagName === 'H1' || element.tagName === 'P' || element.tagName === 'DIV') {
+                    if (key === 'selected') {
+                        const count = selectedIngredients.length;
+                        element.textContent = translate('selected').replace('0', count);
+                    } else {
+                        element.textContent = translate(key);
+                    }
+                }
+            });
+            
+            // Update title
+            document.title = translate('title');
+            
+            // Update dynamic content
+            if (selectedSupermarket) {
+                const market = supermarkets[selectedSupermarket];
+                document.getElementById('supermarket-name-display').textContent = `${translate('shoppingAt')} ${market.name}`;
+            }
+        }
 
         // Supermarket data with ingredients
         const supermarkets = {
@@ -479,6 +709,24 @@
         document.addEventListener('DOMContentLoaded', function() {
             renderSupermarkets();
             setupEventListeners();
+            
+            // Language selector
+            document.getElementById('language-selector').addEventListener('change', function(e) {
+                currentLanguage = e.target.value;
+                updateLanguage();
+                // Re-render current screen content
+                if (currentScreen === 1) {
+                    renderSupermarkets();
+                } else if (currentScreen === 2) {
+                    renderIngredients();
+                } else if (currentScreen === 3) {
+                    displayRawData();
+                } else if (currentScreen === 4) {
+                    generateInsights();
+                }
+            });
+            
+            updateLanguage();
         });
 
         // Screen 1: Render supermarkets
@@ -517,7 +765,7 @@
             const container = document.getElementById('ingredients');
             container.innerHTML = '';
             
-            document.getElementById('supermarket-name-display').textContent = `Shopping at ${market.name}`;
+            document.getElementById('supermarket-name-display').textContent = `${translate('shoppingAt')} ${market.name}`;
             
             market.ingredients.forEach((ingredient, index) => {
                 const card = document.createElement('div');
@@ -550,7 +798,7 @@
                     selectedIngredients.push(ingredient);
                     card.classList.add('selected');
                 } else {
-                    alert('You can only select 5 ingredients!');
+                    alert(translate('youCanOnlySelect'));
                 }
             }
             
@@ -559,7 +807,7 @@
 
         function updateCounter() {
             const count = selectedIngredients.length;
-            document.getElementById('counter').textContent = `Selected: ${count} / 5`;
+            document.getElementById('counter').textContent = translate('selected').replace('0', count);
             document.getElementById('next2').disabled = count !== 5;
         }
 
@@ -606,17 +854,17 @@
             // Supermarket-based insights
             if (selectedSupermarket === 'freshfield') {
                 insights.push({
-                    text: `${market.name} → suggests middle/high income neighborhood.`,
+                    text: `${market.name} ${translate('suggestsIncome')}`,
                     emoji: "🏘️"
                 });
             } else if (selectedSupermarket === 'megastore') {
                 insights.push({
-                    text: `${market.name} → indicates affluent household with premium preferences.`,
+                    text: `${market.name} ${translate('indicatesAffluent')}`,
                     emoji: "💰"
                 });
             } else {
                 insights.push({
-                    text: `${market.name} → suggests budget-conscious shopping habits.`,
+                    text: `${market.name} ${translate('suggestsBudget')}`,
                     emoji: "💵"
                 });
             }
@@ -624,12 +872,12 @@
             // Time-based insights
             if (hour >= 14 && hour <= 17) {
                 insights.push({
-                    text: `Shopping at ${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')} → likely after school → probably a student.`,
+                    text: `${translate('shoppingAt')} ${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')} ${translate('likelyStudent')}`,
                     emoji: "🎒"
                 });
             } else if (hour >= 18) {
                 insights.push({
-                    text: `Evening shopping → suggests working professional or parent.`,
+                    text: translate('eveningShopping'),
                     emoji: "👔"
                 });
             }
@@ -641,7 +889,7 @@
             );
             if (hasOrganic) {
                 insights.push({
-                    text: `Organic items → indicates health-conscious household.`,
+                    text: translate('healthConscious'),
                     emoji: "🌿"
                 });
             }
@@ -649,12 +897,12 @@
             const avgPrice = selectedIngredients.reduce((sum, item) => sum + item.price, 0) / selectedIngredients.length;
             if (avgPrice < 3) {
                 insights.push({
-                    text: `Price patterns → typical teenage budget.`,
+                    text: translate('teenageBudget'),
                     emoji: "👶"
                 });
             } else if (avgPrice > 8) {
                 insights.push({
-                    text: `Premium prices → suggests higher disposable income.`,
+                    text: translate('higherIncome'),
                     emoji: "💎"
                 });
             }
@@ -664,7 +912,7 @@
             );
             if (hasChocolate) {
                 insights.push({
-                    text: `Chocolate ingredients → chocolate cookie preference detected.`,
+                    text: translate('chocolatePreference'),
                     emoji: "🍫"
                 });
             }
@@ -672,7 +920,7 @@
             // Total shopping amount insight
             const totalPrice = selectedIngredients.reduce((sum, item) => sum + item.price, 0);
             insights.push({
-                text: `Total shopping amount: $${totalPrice.toFixed(2)} → reveals spending patterns and budget level.`,
+                text: `${translate('totalShopping')} $${totalPrice.toFixed(2)} ${translate('revealsSpending')}`,
                 emoji: "💳"
             });
             
@@ -700,7 +948,7 @@
                 } else if (selectedIngredients.some(item => item.name.toLowerCase().includes('vanilla'))) {
                     cookieType = cookieTypes.vanilla;
                 }
-                document.getElementById('cookie-result').textContent = `🎉 Your Cookie Type: ${cookieType}`;
+                document.getElementById('cookie-result').textContent = `🎉 ${translate('cookieType')} ${cookieType}`;
             }, insights.length * 300);
         }
 

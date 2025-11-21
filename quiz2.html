@@ -29,6 +29,54 @@
             position: relative;
         }
 
+        .language-bar {
+            background: linear-gradient(135deg, #e8f4f8 0%, #dfe6e9 100%);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            border-bottom: 2px solid #0984e3;
+        }
+
+        .language-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .language-selector label {
+            font-size: 0.95em;
+            color: #636e72;
+            font-weight: 600;
+        }
+
+        .language-selector select {
+            padding: 10px 20px;
+            font-size: 0.95em;
+            border: 2px solid #0984e3;
+            border-radius: 15px;
+            background: white;
+            color: #2d3436;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            min-width: 150px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .language-selector select:hover {
+            background: #e8f4f8;
+            border-color: #6c5ce7;
+            box-shadow: 0 4px 12px rgba(9, 132, 227, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .language-selector select:focus {
+            outline: none;
+            border-color: #0984e3;
+            box-shadow: 0 4px 12px rgba(9, 132, 227, 0.3);
+        }
+
         .screen {
             display: none;
             padding: 40px;
@@ -422,55 +470,82 @@
             .ingredients-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
+            .language-bar {
+                padding: 12px 20px;
+            }
+            .language-selector {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 8px;
+            }
+            .language-selector label {
+                font-size: 0.85em;
+            }
+            .language-selector select {
+                padding: 8px 15px;
+                font-size: 0.85em;
+                min-width: 130px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="language-bar">
+            <div class="language-selector">
+                <label for="language-selector">🌐 Language:</label>
+                <select id="language-selector">
+                    <option value="en">🇬🇧 English</option>
+                    <option value="de">🇩🇪 Deutsch</option>
+                    <option value="es">🇪🇸 Español</option>
+                    <option value="pt">🇵🇹 Português</option>
+                </select>
+            </div>
+        </div>
         <!-- Screen 1: Choose Supermarket -->
         <div class="screen active" id="screen1">
             <div class="header">
-                <h1>Help the CookieBot 2.0 guess your favourite Cookie</h1>
-                <p style="margin-top: 10px; font-size: 1em;">First Let us collect your favourite ingredients. Go to the different supermarkets and buy any 5 ingredients you would like in your cookie.</p>
+                <h1 data-translate="title">Help the CookieBot 2.0 guess your favourite Cookie</h1>
+                <p style="margin-top: 10px; font-size: 1em;" data-translate="subtitle">First Let us collect your favourite ingredients. Go to the different supermarkets and buy any 5 ingredients you would like in your cookie.</p>
             </div>
             <div class="supermarkets" id="supermarkets">
                 <!-- Supermarkets will be populated by JS -->
             </div>
             <div class="nav-buttons">
-                <button class="btn btn-primary" id="next1" disabled>Next →</button>
+                <button class="btn btn-primary" id="next1" disabled data-translate="next">Next →</button>
             </div>
         </div>
 
         <!-- Screen 2: Choose Ingredients (with privacy indicators) -->
         <div class="screen" id="screen2">
             <div class="header">
-                <h1>🛒 Choose 5 Ingredients</h1>
+                <h1 data-translate="chooseIngredients">🛒 Choose 5 Ingredients</h1>
                 <p id="supermarket-name-display"></p>
             </div>
-            <div class="privacy-tooltip">
+            <div class="privacy-tooltip" data-translate="privacyTooltip">
                 🔐 Your ingredient data is encrypted and stored locally!
             </div>
-            <div class="selection-counter" id="counter">
+            <div class="selection-counter" id="counter" data-translate="selected">
                 Selected: 0 / 5
             </div>
             <div class="ingredients-grid" id="ingredients">
                 <!-- Ingredients will be populated by JS -->
             </div>
             <div class="nav-buttons">
-                <button class="btn btn-secondary" id="back2">← Go Back</button>
-                <button class="btn btn-primary" id="next2" disabled>Next →</button>
+                <button class="btn btn-secondary" id="back2" data-translate="goBack">← Go Back</button>
+                <button class="btn btn-primary" id="next2" disabled data-translate="next">Next →</button>
             </div>
         </div>
 
         <!-- Screen 3: Encrypted Data Display -->
         <div class="screen" id="screen3">
             <div class="header">
-                <h1>📡 Data Sent to CookieBot 2.0</h1>
-                <p>Privacy-preserved data only...</p>
+                <h1 data-translate="dataSent2">📡 Data Sent to CookieBot 2.0</h1>
+                <p data-translate="privacyData">Privacy-preserved data only...</p>
             </div>
             
             <div class="privacy-explanation">
-                <p>CookieBot cannot see inside your ingredient bag so it does not have any additional info about the ingredient. Also, Ingredient counts have been fuzzed so the CookieBot only sees ranges, not exact values.</p>
+                <p data-translate="privacyExplanation">CookieBot cannot see inside your ingredient bag so it does not have any additional info about the ingredient. Also, Ingredient counts have been fuzzed so the CookieBot only sees ranges, not exact values.</p>
             </div>
             
             <div class="data-display" id="data-display">
@@ -485,26 +560,26 @@
             </div>
             
             <div class="nav-buttons">
-                <button class="btn btn-secondary" id="back3">← Go Back</button>
-                <button class="btn btn-primary" id="next3">See Insights →</button>
+                <button class="btn btn-secondary" id="back3" data-translate="goBack">← Go Back</button>
+                <button class="btn btn-primary" id="next3" data-translate="seeInsights">See Insights →</button>
             </div>
         </div>
 
         <!-- Screen 4: Limited Insights -->
         <div class="screen" id="screen4">
             <div class="header">
-                <h1>🤖 CookieBot 2.0's Analysis</h1>
-                <p>What CookieBot learned about you...</p>
+                <h1 data-translate="analysis2">🤖 CookieBot 2.0's Analysis</h1>
+                <p data-translate="learned">What CookieBot learned about you...</p>
             </div>
             
             <div class="result-box">
                 <div class="celebration">🎉</div>
-                <div class="result-title" id="cookie-result">Your Cookie Type: Loading...</div>
+                <div class="result-title" id="cookie-result" data-translate="cookieType">Your Cookie Type: Loading...</div>
             </div>
             
             <div class="nav-buttons">
-                <button class="btn btn-secondary" id="back4">← Go Back</button>
-                <button class="btn btn-primary" id="restart">🔄 Restart Quiz</button>
+                <button class="btn btn-secondary" id="back4" data-translate="goBack">← Go Back</button>
+                <button class="btn btn-primary" id="restart" data-translate="restart">🔄 Restart Quiz</button>
             </div>
         </div>
     </div>
@@ -513,6 +588,125 @@
         // ============================================
         // QUIZ 2: CookieBot 2.0 Shop Safely (Privacy-Preserving)
         // ============================================
+
+        // Translation system
+        const translations = {
+            en: {
+                title: "Help the CookieBot 2.0 guess your favourite Cookie",
+                subtitle: "First Let us collect your favourite ingredients. Go to the different supermarkets and buy any 5 ingredients you would like in your cookie.",
+                next: "Next →",
+                goBack: "← Go Back",
+                chooseIngredients: "🛒 Choose 5 Ingredients",
+                selected: "Selected: 0 / 5",
+                shoppingAt: "Shopping at",
+                privacyTooltip: "🔐 Your ingredient data is encrypted and stored locally!",
+                dataSent2: "📡 Data Sent to CookieBot 2.0",
+                privacyData: "Privacy-preserved data only...",
+                privacyExplanation: "CookieBot cannot see inside your ingredient bag so it does not have any additional info about the ingredient. Also, Ingredient counts have been fuzzed so the CookieBot only sees ranges, not exact values.",
+                dataCollected: "📊 Data Collected:",
+                seeInsights: "See Insights →",
+                analysis2: "🤖 CookieBot 2.0's Analysis",
+                learned: "What CookieBot learned about you...",
+                cookieType: "Your Cookie Type:",
+                loading: "Loading...",
+                restart: "🔄 Restart Quiz",
+                youCanOnlySelect: "You can only select 5 ingredients!"
+            },
+            de: {
+                title: "Hilf dem CookieBot 2.0, dein Lieblingskeks zu erraten",
+                subtitle: "Zuerst sammeln wir deine Lieblingszutaten. Gehe zu den verschiedenen Supermärkten und kaufe 5 Zutaten, die du in deinem Keks haben möchtest.",
+                next: "Weiter →",
+                goBack: "← Zurück",
+                chooseIngredients: "🛒 Wähle 5 Zutaten",
+                selected: "Ausgewählt: 0 / 5",
+                shoppingAt: "Einkaufen bei",
+                privacyTooltip: "🔐 Deine Zutatendaten sind verschlüsselt und lokal gespeichert!",
+                dataSent2: "📡 An CookieBot 2.0 gesendete Daten",
+                privacyData: "Nur datenschutzgeschützte Daten...",
+                privacyExplanation: "CookieBot kann nicht in deine Zutaten-Tasche sehen und hat daher keine zusätzlichen Informationen über die Zutaten. Außerdem wurden die Zutatenanzahlen verschleiert, sodass CookieBot nur Bereiche sieht, keine genauen Werte.",
+                dataCollected: "📊 Gesammelte Daten:",
+                seeInsights: "Einblicke anzeigen →",
+                analysis2: "🤖 CookieBot 2.0's Analyse",
+                learned: "Was CookieBot über dich gelernt hat...",
+                cookieType: "Dein Kekstyp:",
+                loading: "Lädt...",
+                restart: "🔄 Quiz neu starten",
+                youCanOnlySelect: "Du kannst nur 5 Zutaten auswählen!"
+            },
+            es: {
+                title: "Ayuda al CookieBot 2.0 a adivinar tu galleta favorita",
+                subtitle: "Primero recopilemos tus ingredientes favoritos. Ve a los diferentes supermercados y compra 5 ingredientes que te gustaría tener en tu galleta.",
+                next: "Siguiente →",
+                goBack: "← Volver",
+                chooseIngredients: "🛒 Elige 5 Ingredientes",
+                selected: "Seleccionado: 0 / 5",
+                shoppingAt: "Comprando en",
+                privacyTooltip: "🔐 ¡Tus datos de ingredientes están encriptados y almacenados localmente!",
+                dataSent2: "📡 Datos Enviados a CookieBot 2.0",
+                privacyData: "Solo datos protegidos por privacidad...",
+                privacyExplanation: "CookieBot no puede ver dentro de tu bolsa de ingredientes, por lo que no tiene información adicional sobre el ingrediente. Además, los conteos de ingredientes han sido difuminados para que CookieBot solo vea rangos, no valores exactos.",
+                dataCollected: "📊 Datos Recopilados:",
+                seeInsights: "Ver Información →",
+                analysis2: "🤖 Análisis de CookieBot 2.0",
+                learned: "Lo que CookieBot aprendió sobre ti...",
+                cookieType: "Tu Tipo de Galleta:",
+                loading: "Cargando...",
+                restart: "🔄 Reiniciar Quiz",
+                youCanOnlySelect: "¡Solo puedes seleccionar 5 ingredientes!"
+            },
+            pt: {
+                title: "Ajude o CookieBot 2.0 a adivinhar seu biscoito favorito",
+                subtitle: "Primeiro vamos coletar seus ingredientes favoritos. Vá aos diferentes supermercados e compre 5 ingredientes que você gostaria de ter no seu biscoito.",
+                next: "Próximo →",
+                goBack: "← Voltar",
+                chooseIngredients: "🛒 Escolha 5 Ingredientes",
+                selected: "Selecionado: 0 / 5",
+                shoppingAt: "Comprando em",
+                privacyTooltip: "🔐 Seus dados de ingredientes estão criptografados e armazenados localmente!",
+                dataSent2: "📡 Dados Enviados ao CookieBot 2.0",
+                privacyData: "Apenas dados protegidos por privacidade...",
+                privacyExplanation: "CookieBot não pode ver dentro da sua bolsa de ingredientes, então não tem informações adicionais sobre o ingrediente. Além disso, as contagens de ingredientes foram ofuscadas para que o CookieBot veja apenas intervalos, não valores exatos.",
+                dataCollected: "📊 Dados Coletados:",
+                seeInsights: "Ver Informações →",
+                analysis2: "🤖 Análise do CookieBot 2.0",
+                learned: "O que o CookieBot aprendeu sobre você...",
+                cookieType: "Seu Tipo de Biscoito:",
+                loading: "Carregando...",
+                restart: "🔄 Reiniciar Quiz",
+                youCanOnlySelect: "Você só pode selecionar 5 ingredientes!"
+            }
+        };
+
+        let currentLanguage = 'en';
+
+        // Translation function
+        function translate(key) {
+            return translations[currentLanguage][key] || translations.en[key] || key;
+        }
+
+        // Update all text elements
+        function updateLanguage() {
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (element.tagName === 'BUTTON' || element.tagName === 'H1' || element.tagName === 'P' || element.tagName === 'DIV') {
+                    if (key === 'selected') {
+                        const count = selectedIngredients.length;
+                        element.textContent = translate('selected').replace('0', count);
+                    } else {
+                        element.textContent = translate(key);
+                    }
+                }
+            });
+            
+            // Update title
+            document.title = translate('title');
+            
+            // Update dynamic content
+            if (selectedSupermarket) {
+                const market = supermarkets[selectedSupermarket];
+                document.getElementById('supermarket-name-display').textContent = `${translate('shoppingAt')} ${market.name}`;
+            }
+        }
 
         // Same supermarket data as Quiz 1
         const supermarkets = {
@@ -578,6 +772,24 @@
         document.addEventListener('DOMContentLoaded', function() {
             renderSupermarkets();
             setupEventListeners();
+            
+            // Language selector
+            document.getElementById('language-selector').addEventListener('change', function(e) {
+                currentLanguage = e.target.value;
+                updateLanguage();
+                // Re-render current screen content
+                if (currentScreen === 1) {
+                    renderSupermarkets();
+                } else if (currentScreen === 2) {
+                    renderIngredients();
+                } else if (currentScreen === 3) {
+                    displayEncryptedData();
+                } else if (currentScreen === 4) {
+                    generateLimitedInsights();
+                }
+            });
+            
+            updateLanguage();
         });
 
         // Screen 1: Render supermarkets
@@ -616,7 +828,7 @@
             const container = document.getElementById('ingredients');
             container.innerHTML = '';
             
-            document.getElementById('supermarket-name-display').textContent = `Shopping at ${market.name}`;
+            document.getElementById('supermarket-name-display').textContent = `${translate('shoppingAt')} ${market.name}`;
             
             market.ingredients.forEach((ingredient, index) => {
                 const card = document.createElement('div');
@@ -648,7 +860,7 @@
                     selectedIngredients.push(ingredient);
                     card.classList.add('selected');
                 } else {
-                    alert('You can only select 5 ingredients!');
+                    alert(translate('youCanOnlySelect'));
                 }
             }
             
@@ -657,7 +869,7 @@
 
         function updateCounter() {
             const count = selectedIngredients.length;
-            document.getElementById('counter').textContent = `Selected: ${count} / 5`;
+            document.getElementById('counter').textContent = translate('selected').replace('0', count);
             document.getElementById('next2').disabled = count !== 5;
         }
 
@@ -730,7 +942,7 @@
             }
             
             // Display cookie type
-            document.getElementById('cookie-result').textContent = `🎉 Your Cookie Type: ${cookieType}`;
+            document.getElementById('cookie-result').textContent = `🎉 ${translate('cookieType')} ${cookieType}`;
         }
 
         // Navigation functions
