@@ -28,6 +28,59 @@
             background: white;
             border-radius: 30px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .language-bar {
+            background: linear-gradient(135deg, #fff5e6 0%, #ffeaa7 100%);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            border-bottom: 2px solid #fdcb6e;
+        }
+
+        .language-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .language-selector label {
+            font-size: 0.95em;
+            color: #636e72;
+            font-weight: 600;
+        }
+
+        .language-selector select {
+            padding: 10px 20px;
+            font-size: 0.95em;
+            border: 2px solid #e17055;
+            border-radius: 15px;
+            background: white;
+            color: #2d3436;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            min-width: 150px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .language-selector select:hover {
+            background: #fff5e6;
+            border-color: #fdcb6e;
+            box-shadow: 0 4px 12px rgba(225, 112, 85, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .language-selector select:focus {
+            outline: none;
+            border-color: #e17055;
+            box-shadow: 0 4px 12px rgba(225, 112, 85, 0.3);
+        }
+
+        .content {
             padding: 50px;
             text-align: center;
         }
@@ -119,37 +172,143 @@
             .subtitle {
                 font-size: 1.1em;
             }
-            .container {
+            .content {
                 padding: 30px 20px;
             }
             .quiz-title {
                 font-size: 1.5em;
+            }
+            .language-bar {
+                padding: 12px 20px;
+            }
+            .language-selector {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 8px;
+            }
+            .language-selector label {
+                font-size: 0.85em;
+            }
+            .language-selector select {
+                padding: 8px 15px;
+                font-size: 0.85em;
+                min-width: 130px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🍪 Welcome to Cookie Quiz!</h1>
-        <p class="subtitle">Select a quiz to begin your cookie adventure:</p>
+        <div class="language-bar">
+            <div class="language-selector">
+                <label for="language-selector">🌐 Language:</label>
+                <select id="language-selector">
+                    <option value="en">🇬🇧 English</option>
+                    <option value="de">🇩🇪 Deutsch</option>
+                    <option value="es">🇪🇸 Español</option>
+                    <option value="pt">🇵🇹 Português</option>
+                </select>
+            </div>
+        </div>
+        <div class="content">
+            <h1 data-translate="welcome">🍪 Welcome to Cookie Quiz!</h1>
+            <p class="subtitle" data-translate="selectQuiz">Select a quiz to begin your cookie adventure:</p>
 
-        <ul class="quiz-list">
-            <li>
-                <a href="quiz1.html" class="quiz-item">
-                    <div class="quiz-icon">🍪</div>
-                    <div class="quiz-title">Quiz 1: CookieBot Shop & Reveal</div>
-                    <div class="quiz-description">Discover how much data CookieBot can learn about you from your shopping choices!</div>
-                </a>
-            </li>
-            <li>
-                <a href="quiz2.html" class="quiz-item quiz2">
-                    <div class="quiz-icon">🔒</div>
-                    <div class="quiz-title">Quiz 2: CookieBot 2.0 Shop Safely</div>
-                    <div class="quiz-description">Experience privacy-preserving shopping with encrypted data and limited insights!</div>
-                </a>
-            </li>
-        </ul>
+            <ul class="quiz-list">
+                <li>
+                    <a href="quiz1.html" class="quiz-item">
+                        <div class="quiz-icon">🍪</div>
+                        <div class="quiz-title" data-translate="quiz1Title">Quiz 1: CookieBot Shop & Reveal</div>
+                        <div class="quiz-description" data-translate="quiz1Desc">Discover how much data CookieBot can learn about you from your shopping choices!</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="quiz2.html" class="quiz-item quiz2">
+                        <div class="quiz-icon">🔒</div>
+                        <div class="quiz-title" data-translate="quiz2Title">Quiz 2: CookieBot 2.0 Shop Safely</div>
+                        <div class="quiz-description" data-translate="quiz2Desc">Experience privacy-preserving shopping with encrypted data and limited insights!</div>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
+
+    <script>
+        // Translation system
+        const translations = {
+            en: {
+                welcome: "🍪 Welcome to Cookie Quiz!",
+                selectQuiz: "Select a quiz to begin your cookie adventure:",
+                quiz1Title: "Quiz 1: CookieBot Shop & Reveal",
+                quiz1Desc: "Discover how much data CookieBot can learn about you from your shopping choices!",
+                quiz2Title: "Quiz 2: CookieBot 2.0 Shop Safely",
+                quiz2Desc: "Experience privacy-preserving shopping with encrypted data and limited insights!"
+            },
+            de: {
+                welcome: "🍪 Willkommen beim Cookie-Quiz!",
+                selectQuiz: "Wähle ein Quiz, um dein Cookie-Abenteuer zu beginnen:",
+                quiz1Title: "Quiz 1: CookieBot Einkaufen & Enthüllen",
+                quiz1Desc: "Entdecke, wie viel Daten CookieBot aus deinen Einkaufsentscheidungen über dich lernen kann!",
+                quiz2Title: "Quiz 2: CookieBot 2.0 Sicher Einkaufen",
+                quiz2Desc: "Erlebe datenschutzschonendes Einkaufen mit verschlüsselten Daten und begrenzten Einblicken!"
+            },
+            es: {
+                welcome: "🍪 ¡Bienvenido a Cookie Quiz!",
+                selectQuiz: "Selecciona un quiz para comenzar tu aventura de galletas:",
+                quiz1Title: "Quiz 1: CookieBot Comprar y Revelar",
+                quiz1Desc: "¡Descubre cuántos datos puede aprender CookieBot sobre ti a partir de tus elecciones de compra!",
+                quiz2Title: "Quiz 2: CookieBot 2.0 Comprar de Forma Segura",
+                quiz2Desc: "¡Experimenta compras que preservan la privacidad con datos encriptados e información limitada!"
+            },
+            pt: {
+                welcome: "🍪 Bem-vindo ao Cookie Quiz!",
+                selectQuiz: "Selecione um quiz para começar sua aventura de biscoitos:",
+                quiz1Title: "Quiz 1: CookieBot Comprar e Revelar",
+                quiz1Desc: "Descubra quantos dados o CookieBot pode aprender sobre você com base em suas escolhas de compra!",
+                quiz2Title: "Quiz 2: CookieBot 2.0 Comprar com Segurança",
+                quiz2Desc: "Experimente compras que preservam a privacidade com dados criptografados e informações limitadas!"
+            }
+        };
+
+        let currentLanguage = 'en';
+
+        // Translation function
+        function translate(key) {
+            return translations[currentLanguage][key] || translations.en[key] || key;
+        }
+
+        // Update all text elements
+        function updateLanguage() {
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                element.textContent = translate(key);
+            });
+            
+            // Update title
+            document.title = translate('welcome').replace('🍪 ', '');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved language preference
+            const savedLanguage = localStorage.getItem('cookieQuizLanguage');
+            if (savedLanguage && translations[savedLanguage]) {
+                currentLanguage = savedLanguage;
+                document.getElementById('language-selector').value = savedLanguage;
+            }
+            
+            // Language selector
+            document.getElementById('language-selector').addEventListener('change', function(e) {
+                currentLanguage = e.target.value;
+                // Save language preference
+                localStorage.setItem('cookieQuizLanguage', currentLanguage);
+                updateLanguage();
+            });
+            
+            updateLanguage();
+        });
+    </script>
 </body>
 </html>
+
 
